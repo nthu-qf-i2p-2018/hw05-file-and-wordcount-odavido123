@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# In[ ]:
+# In[7]:
 
 
 import csv, json, pickle, string
@@ -13,28 +13,26 @@ def main(filename):
 
     for line in lines:
         words = line.split()
-
+        
         for word in words:
             word = word.strip(string.punctuation)
 
-            if word!=' ':
+            if word!=(" "):
                 all_words.append(word)
 
     from collections import Counter
     counter = Counter(all_words)
 
-    with open("wordcount.csv", "w") as csv_file:
-        writer = csv.writer(csv_file)
+    with open("wordcount.csv", "w", newline ='') as csv_file:
+        writer = csv.writer(csv_file, delimiter=',')
         writer.writerow(['word', 'count'])
+        writer.writerows(counter.most_common())
+
+    with open('wordcount.json', 'w') as json_file:
+        json.dump(counter.most_common(), json_file)
         
-        for i in list(all_words):
-            writer.writerow([all_words[i], all_words.count(all_words[i])])
-
-    with open("wordcount.json", "w") as json_file:
-        json.dump(counter, json_file)
-
-    pickle.dump(counter, open("wordcount.pkl", 'wb'))
-
+    with open('wordcount.pkl', 'wb') as pkl_file:
+        pickle.dump(counter, pkl_file)
 
 if __name__ == '__main__':
     main("i_have_a_dream.txt")
