@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# In[7]:
+# In[2]:
 
 
 import csv, json, pickle, string
@@ -17,7 +17,7 @@ def main(filename):
         for word in words:
             word = word.strip(string.punctuation)
 
-            if word!=(" "):
+            if word!=(''):
                 all_words.append(word)
 
     from collections import Counter
